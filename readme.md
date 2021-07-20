@@ -1,4 +1,4 @@
-# We Rate Books
+# We Rate Desserts
 
 ## Overview
 We will be building a website where users can add their name and upload books with book reviews.

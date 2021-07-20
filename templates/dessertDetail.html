@@ -5,12 +5,14 @@
 {% block content%}
 
 <div class="container">
-  <h1>Books</h1>
   <div class="row">
-    {% for book in data.books %}
-    {{book.title}}
-    {{book.author}}
-    <a href="{{url_for('books_detail', title=book.title)}}">Details</a>
+    {{data.dessert.title}}
+    {{data.dessert.genre}}
+
+    {% for review in data.reviews %}
+      {{review.user}}
+      {{review.rating}}
+      {{review.review}}
     {% endfor %}
   </div>
 </div>

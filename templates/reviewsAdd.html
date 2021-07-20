@@ -5,7 +5,7 @@
 {% block content%}
 
 <div class="container">
-  <h1>Review a Book</h1>
+  <h1>Review a Dessert</h1>
   <div class="col">
     <form method="POST" action="{{url_for('reviews_add')}}">
       <div class="form-row">
@@ -20,21 +20,21 @@
         </div>
 
         <div class="form-group col-6">
-          <label for="bookTitle">Book Title</label>
+          <label for="bookTitle">Dessert Title</label>
           <select class="form-control" name="bookTitle">
-            {% for book in data.books %}
-            <option>{{book.title}}</option>
+            {% for dessert in data.desserts %}
+            <option>{{dessert.title}}</option>
             {% endfor %}
           </select>
         </div>
 
         <div class="form-group col-6">
-          <label for="reviewRating" class="control-label">Book Rating</label>
+          <label for="reviewRating" class="control-label">Dessert Rating</label>
           <input type="range" min="1" max="10" value="5" class="form-control-range" id="reviewRating" name="reviewRating">
         </div>
 
         <div class="form-group col-12">
-          <label for="reviewText">Book Review</label>
+          <label for="reviewText">Dessert Review</label>
           <textarea class="form-control" name="reviewText" rows="5"></textarea>
         </div>
 

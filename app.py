@@ -5,10 +5,11 @@ from flask import request
 from flask import url_for
 from flask import redirect
 from flask import request
+
 from flask_pymongo import PyMongo
 import os
 from dotenv import load_dotenv
-import datetime
+import datetime as dt
 
 import model
 
@@ -16,7 +17,7 @@ load_dotenv()
 
 # -- Initialization section --
 app = Flask(__name__)
-app.jinja_env.globals['current_time'] = datetime.datetime.now()
+app.jinja_env.globals['current_time'] = dt.datetime.now()
 
 
 MONGO_DBNAME = os.getenv("MONGO_DBNAME")
@@ -66,27 +67,27 @@ def users_add():
         mongo.db.users.insert(user)
         return redirect(url_for('users_view'))
 
-@app.route('/books')
-def books_view():
+@app.route('/desserts')
+def desserts_view():
     data = {
-    'books':mongo.db.books.find({}),
+    'desserts':mongo.db.desserts.find({}),
     }
-    return render_template('booksView.html', data=data)
+    return render_template('dessertsView.html', data=data)
 
-@app.route('/books/<title>')
-def books_detail(title):
+@app.route('/desserts/<title>')
+def desserts_detail(title):
     data = {
-    'book':mongo.db.books.find_one({'title':title}),
+    'book':mongo.db.desserts.find_one({'title':title}),
     'reviews':mongo.db.reviews.find({'title':title}),
     }
-    return render_template('booksDetail.html', data=data)
+    return render_template('dessertsDetail.html', data=data)
 
-@app.route('/books/add', methods=['GET','POST'])
-def books_add():
+@app.route('/desserts/add', methods=['GET','POST'])
+def desserts_add():
     if request.method == 'GET':
         data = {
         }
-        return render_template('booksAdd.html', data=data)
+        return render_template('dessertsAdd.html', data=data)
     else:
         form = request.form
         book = {
@@ -97,8 +98,8 @@ def books_add():
         data = {
         'book':book
         }
-        mongo.db.books.insert(book)
-        return render_template('booksDetail.html', data=data)
+        mongo.db.desserts.insert(book)
+        return render_template('dessertsDetail.html', data=data)
 
 @app.route('/reviews')
 def reviews_view():
@@ -111,7 +112,7 @@ def reviews_view():
 def reviews_add():
     if request.method == 'GET':
         data = {
-            'books':mongo.db.books.find({}),
+            'desserts':mongo.db.desserts.find({}),
             'users':mongo.db.users.find({}),
         }
         return render_template('reviewsAdd.html', data=data)
