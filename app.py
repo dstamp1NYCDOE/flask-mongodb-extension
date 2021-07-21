@@ -77,7 +77,7 @@ def desserts_view():
 @app.route('/desserts/<title>')
 def desserts_detail(title):
     data = {
-    'book':mongo.db.desserts.find_one({'title':title}),
+    'dessert':mongo.db.desserts.find_one({'title':title}),
     'reviews':mongo.db.reviews.find({'title':title}),
     }
     return render_template('dessertsDetail.html', data=data)
@@ -90,15 +90,14 @@ def desserts_add():
         return render_template('dessertsAdd.html', data=data)
     else:
         form = request.form
-        book = {
-        'title':form['bookTitle'],
-        'author':form['bookAuthor'],
-        'genre':form['bookGenre'],
+        dessert = {
+        'title':form['dessertTitle'],
+        'category':form['dessertCategory'],
         }
         data = {
-        'book':book
+        'dessert':dessert
         }
-        mongo.db.desserts.insert(book)
+        mongo.db.desserts.insert(dessert)
         return render_template('dessertsDetail.html', data=data)
 
 @app.route('/reviews')
@@ -119,7 +118,7 @@ def reviews_add():
     else:
         form = request.form
         review = {
-        'title':form['bookTitle'],
+        'title':form['dessertTitle'],
         'user':form['reviewUser'],
         'rating':int(form['reviewRating']),
         'review':form['reviewText'],
